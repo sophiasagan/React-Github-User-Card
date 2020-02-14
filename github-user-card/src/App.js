@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import UserCard from './components/UserCard'
 import FollowerCard from './components/FollowerCard';
-import SearchForm from './components/SearchForm';
+// import SearchForm from './components/SearchForm';
 
 class App extends Component {
   constructor() {
@@ -50,12 +50,52 @@ componentDidMount() {
 
 }
 
+handleChanges = e => {
+  this.setState({ searchText: e.target.value });
+  console.log(e.target.value);
+};
+
+componentDidUpdate(prevProps, prevState) {
+  console.log("componentDidUpdate running");
+
+  if (prevState.cards !== this.state.cards) {
+    console.log("Cards have changed :)");
+    }
+  }
+
+
+newUser = e => {
+  e.preventDefault();
+
+
+  fetch(`https://api.github.com/users/${this.state.searchText}`)
+    .then(res => res.json())
+    .then(cards => this.setState({ user: cards }))
+    .catch(err => console.log("No cards :(", err));
+
+
+
+  fetch(`https://api.github.com/users/${this.state.searchText}/followers`)
+    .then(res => res.json())
+    .then(cards => this.setState({ followers: cards }))
+    .catch(err => console.log("No cards :(", err));
+
+  
+};
+
+
   render(){
     console.log(this.state.user)
 
   return (
     <div className="App">
         GitHub Cards
+        <input
+          type="text"
+          value={this.state.searchText}
+          onChange={this.handleChanges}
+        />
+        <button onClick={this.newUser}>Search User</button>
     <UserCard 
     img={this.state.user.avatar_url}
     name={this.state.user.login}
@@ -65,7 +105,7 @@ componentDidMount() {
     />
     <div>
       <h1>Followers</h1>
-      <SearchForm changeUser={this.changeUser}/>
+      {/* <SearchForm changeUser={this.changeUser}/> */}
       <div className="followers">
         {this.state.followers.map(user => {
           return (
