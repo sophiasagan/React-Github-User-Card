@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import './App.css';
 import UserCard from './components/UserCard'
 import FollowerCard from './components/FollowerCard';
-
+import SearchForm from './components/SearchForm';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       user: {},
-      followers: []
+      followers: [],
+      searchText: ''
     };
   }
 
@@ -64,6 +65,7 @@ componentDidMount() {
     />
     <div>
       <h1>Followers</h1>
+      <SearchForm changeUser={this.changeUser}/>
       <div className="followers">
         {this.state.followers.map(user => {
           return (
