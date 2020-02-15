@@ -3,8 +3,6 @@ import './App.css';
 import UserCard from './components/UserCard'
 import FollowerCard from './components/FollowerCard';
 // import SearchForm from './components/SearchForm';
-import MyCarousel from "./components/MyCarousel";
-import ReactCardCarousel from 'react-card-carousel';
 
 class App extends Component {
   constructor() {
@@ -113,8 +111,7 @@ class App extends Component {
         <div>
           <h1>Followers</h1>
           {/* <SearchForm changeUser={this.changeUser}/> */}
-          <ReactCardCarousel autoplay={ true } autoplay_speed={ 2500 }>
-          <div style= {MyCarousel.CARD_STYLE} className="followers">
+          <div className="followers">
             {this.state.followers.map(user => {
               return (
                 <FollowerCard
@@ -125,7 +122,6 @@ class App extends Component {
               )
             })}
           </div>
-          </ReactCardCarousel>
         </div>
       </div>
     );
