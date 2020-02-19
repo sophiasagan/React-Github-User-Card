@@ -3,6 +3,7 @@ import './App.css';
 import UserCard from './components/UserCard'
 import FollowerCard from './components/FollowerCard';
 // import SearchForm from './components/SearchForm';
+import Carousel from 'react-images';
 
 class App extends Component {
   constructor() {
@@ -90,6 +91,7 @@ class App extends Component {
     return (
       <div className="App">
         <h2>GitHub Cards</h2>
+        <form onSubmit={this.newUser}>
         <input className='searchField'
           type='text'
           name='name'
@@ -97,8 +99,10 @@ class App extends Component {
           value={this.state.searchText}
           onChange={this.handleChanges}
         />
+        <button>Search User</button>
+        </form>
 
-        <button onClick={this.newUser}>Search User</button>
+        
         <div className="users">
           <UserCard
             img={this.state.user.avatar_url}
@@ -114,11 +118,13 @@ class App extends Component {
           <div className="followers">
             {this.state.followers.map(user => {
               return (
+                
                 <FollowerCard
                   img={user.avatar_url}
                   name={user.login}
                   url={user.html_url}
                 />
+                
               )
             })}
           </div>
